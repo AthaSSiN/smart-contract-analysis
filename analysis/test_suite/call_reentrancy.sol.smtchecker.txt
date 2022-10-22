@@ -1,0 +1,77 @@
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> test_suite/call_reentrancy.sol
+
+Warning: This contract has a payable fallback function, but no receive ether function. Consider adding a receive ether function.
+  --> test_suite/call_reentrancy.sol:29:1:
+   |
+29 | contract Attack {
+   | ^ (Relevant source part starts here and spans across multiple lines).
+Note: The payable fallback function is defined here.
+  --> test_suite/call_reentrancy.sol:37:5:
+   |
+37 |     fallback() external payable {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning: CHC: Overflow (resulting value larger than 2**256 - 1) happens here.
+ --> test_suite/call_reentrancy.sol:6:9:
+  |
+6 |         balances[msg.sender] += msg.value;
+  |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning: CHC: Overflow (resulting value larger than 2**256 - 1) might happen here.
+  --> test_suite/call_reentrancy.sol:19:25:
+   |
+19 |         assert(o_bal == n_bal + bal);
+   |                         ^^^^^^^^^^^
+
+Warning: CHC: Assertion violation might happen here.
+  --> test_suite/call_reentrancy.sol:19:9:
+   |
+19 |         assert(o_bal == n_bal + bal);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning: BMC: Overflow (resulting value larger than 2**256 - 1) happens here.
+  --> test_suite/call_reentrancy.sol:19:25:
+   |
+19 |         assert(o_bal == n_bal + bal);
+   |                         ^^^^^^^^^^^
+Note: Counterexample:
+   = 0xFFFFffffFFFFffffFFFFffffFFFFffffFFFFffffFFFFffffFFFFffffFFFF8f38
+  <result> = 2**256
+  address(this).balance = 0xFFFFffffFFFFffffFFFFffffFFFFffffFFFFffffFFFFffffFFFFffffFFFF8f38
+  bal = 28872
+  balances[msg.sender] = 28872
+  etherStore = 0
+  n_bal = 0xFFFFffffFFFFffffFFFFffffFFFFffffFFFFffffFFFFffffFFFFffffFFFF8f38
+  o_bal = 28872
+  sent = true
+  this = 18004
+
+Note: Callstack:
+Note: 
+Note that array aliasing is not supported, therefore all mapping information is erased after a mapping local variable/parameter is assigned.
+You can re-introduce information using require().
+Note that external function calls are not inlined, even if the source code of the function is available. This is due to the possibility that the actual called contract has the same ABI but implements the function differently.
+
+Warning: BMC: Assertion violation happens here.
+  --> test_suite/call_reentrancy.sol:19:9:
+   |
+19 |         assert(o_bal == n_bal + bal);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: Counterexample:
+   = 11574
+  address(this).balance = 11574
+  bal = 16021
+  balances[msg.sender] = 16021
+  etherStore = 0
+  n_bal = 11574
+  o_bal = 27596
+  sent = true
+  this = 25983
+
+Note: Callstack:
+Note: 
+Note that array aliasing is not supported, therefore all mapping information is erased after a mapping local variable/parameter is assigned.
+You can re-introduce information using require().
+Note that external function calls are not inlined, even if the source code of the function is available. This is due to the possibility that the actual called contract has the same ABI but implements the function differently.
+

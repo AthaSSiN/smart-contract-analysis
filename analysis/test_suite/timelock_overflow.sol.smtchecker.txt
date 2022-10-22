@@ -1,0 +1,64 @@
+Warning: This contract has a payable fallback function, but no receive ether function. Consider adding a receive ether function.
+  --> test_suite/timelock_overflow.sol:44:1:
+   |
+44 | contract Attack {
+   | ^ (Relevant source part starts here and spans across multiple lines).
+Note: The payable fallback function is defined here.
+  --> test_suite/timelock_overflow.sol:51:5:
+   |
+51 |     fallback() external payable {}
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning: CHC: Overflow (resulting value larger than 2**256 - 1) might happen here.
+  --> test_suite/timelock_overflow.sol:24:9:
+   |
+24 |         balances[msg.sender] += msg.value;
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning: CHC: Overflow (resulting value larger than 2**256 - 1) happens here.
+Counterexample:
+
+
+Transaction trace:
+TimeLock.constructor()
+TimeLock.deposit(){ block.timestamp: 115792089237316195423570985008687907853269984665640564039457584007913129035136, msg.sender: 0x0985, msg.value: 1 }
+  --> test_suite/timelock_overflow.sol:25:32:
+   |
+25 |         lockTime[msg.sender] = block.timestamp + 1 weeks;
+   |                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning: CHC: Overflow (resulting value larger than 2**256 - 1) happens here.
+  --> test_suite/timelock_overflow.sol:29:9:
+   |
+29 |         lockTime[msg.sender] += _secondsToIncrease;
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning: CHC: Overflow (resulting value larger than 2**256 - 1) happens here.
+Counterexample:
+timeLock = 0
+
+Transaction trace:
+Attack.constructor(0)
+State: timeLock = 0
+Attack.attack(){ msg.value: 0 }
+    timeLock.deposit{value: msg.value}() -- untrusted external call
+  --> test_suite/timelock_overflow.sol:63:13:
+   |
+63 |             type(uint).max + 1 - timeLock.lockTime(address(this))
+   |             ^^^^^^^^^^^^^^^^^^
+
+Warning: BMC: Overflow (resulting value larger than 2**256 - 1) happens here.
+  --> test_suite/timelock_overflow.sol:24:9:
+   |
+24 |         balances[msg.sender] += msg.value;
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: Counterexample:
+  <result> = 2**256
+  balances[msg.sender] = 0xFFFFffffFFFFffffFFFFffffFFFFffffFFFFffffFFFFffffFFFFffffFFFFe1d8
+  timeLock = 0
+
+Note: Callstack:
+Note: 
+Note that array aliasing is not supported, therefore all mapping information is erased after a mapping local variable/parameter is assigned.
+You can re-introduce information using require().
+

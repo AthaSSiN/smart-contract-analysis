@@ -1,0 +1,20 @@
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> test_suite/non_mut_reentrancy.sol
+
+Warning: CHC: Assertion violation happens here.
+Counterexample:
+x = 1
+u = 0
+x_prev = 0
+
+Transaction trace:
+ExtCall.constructor()
+State: x = 0
+ExtCall.xMut(0)
+    u.callMe() -- untrusted external call, synthesized as:
+        ExtCall.setX(1) -- reentrant call
+  --> test_suite/non_mut_reentrancy.sol:18:3:
+   |
+18 | 		assert(x_prev == x);
+   | 		^^^^^^^^^^^^^^^^^^^
+

@@ -1,0 +1,19 @@
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> test_suite/receive_balance.sol
+
+Warning: Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.17;"
+--> test_suite/receive_balance.sol
+
+Warning: CHC: Assertion violation happens here.
+Counterexample:
+sum = 0
+
+Transaction trace:
+C.constructor()
+State: sum = 0
+C.inv()
+ --> test_suite/receive_balance.sol:7:3:
+  |
+7 | 		assert(address(this).balance == sum); // should fail
+  | 		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+

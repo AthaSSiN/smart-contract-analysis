@@ -1,0 +1,17 @@
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> test_suite/insufficient_funds.sol
+
+Warning: Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.17;"
+--> test_suite/insufficient_funds.sol
+
+Warning: BMC: Insufficient funds happens here.
+ --> test_suite/insufficient_funds.sol:3:3:
+  |
+3 | 		a.transfer(200);
+  | 		^^^^^^^^^^^^^^^
+Note: Counterexample:
+  a = 0
+
+Note: Callstack:
+Note:
+

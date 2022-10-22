@@ -1,0 +1,14 @@
+Warning: CHC: Underflow (resulting value less than 0) happens here.
+Counterexample:
+x = 0
+i = 2
+
+Transaction trace:
+MyContract.constructor()
+State: x = 0
+MyContract.func_loop()
+  --> test_suite/underflow_loop_decr.sol:10:9:
+   |
+10 |         --x;
+   |         ^^^
+

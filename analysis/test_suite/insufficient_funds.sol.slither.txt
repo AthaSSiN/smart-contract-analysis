@@ -1,0 +1,28 @@
+Installing '0.8.17'...
+Version '0.8.17' installed.
+Switched global version to 0.8.17
+Compilation warnings/errors on /tmp/test_suite/insufficient_funds.sol:
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> test_suite/insufficient_funds.sol
+
+Warning: Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.17;"
+--> test_suite/insufficient_funds.sol
+
+
+[91m
+C.f(address) (test_suite/insufficient_funds.sol#2-4) sends eth to arbitrary user
+	Dangerous calls:
+	- a.transfer(200) (test_suite/insufficient_funds.sol#3)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#functions-that-send-ether-to-arbitrary-destinations[0m
+[92m
+C.f(address).a (test_suite/insufficient_funds.sol#2) lacks a zero-check on :
+		- a.transfer(200) (test_suite/insufficient_funds.sol#3)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-zero-address-validation[0m
+[92m
+solc-0.8.17 is not recommended for deployment
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity[0m
+[92m
+f(address) should be declared external:
+	- C.f(address) (test_suite/insufficient_funds.sol#2-4)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#public-function-that-could-be-declared-external[0m
+/tmp/test_suite/insufficient_funds.sol analyzed (1 contracts with 78 detectors), 4 result(s) found

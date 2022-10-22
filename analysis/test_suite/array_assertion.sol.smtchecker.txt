@@ -1,0 +1,16 @@
+Warning: CHC: Assertion violation happens here.
+Counterexample:
+
+_a = [0, 0, 0, 0, 0]
+ = 0
+m = 0
+i = 0
+
+Transaction trace:
+Max.constructor()
+Max.max([0, 0, 0, 0, 0])
+  --> test_suite/array_assertion.sol:13:13:
+   |
+13 |             assert(m > _a[i]);
+   |             ^^^^^^^^^^^^^^^^^
+

@@ -1,0 +1,13 @@
+Installing '0.8.17'...
+Version '0.8.17' installed.
+Switched global version to 0.8.17
+[92m
+solc-0.8.17 is not recommended for deployment
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity[0m
+[92m
+setX(uint256) should be declared external:
+	- ExtCall.setX(uint256) (test_suite/mut_reentrancy_fixed.sol#19-21)
+xMut(Unknown) should be declared external:
+	- ExtCall.xMut(Unknown) (test_suite/mut_reentrancy_fixed.sol#23-27)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#public-function-that-could-be-declared-external[0m
+/tmp/test_suite/mut_reentrancy_fixed.sol analyzed (2 contracts with 78 detectors), 3 result(s) found

@@ -1,0 +1,29 @@
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> test_suite/balance_call.sol
+
+Warning: Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.17;"
+--> test_suite/balance_call.sol
+
+Warning: Return value of low-level calls not used.
+ --> test_suite/balance_call.sol:4:3:
+  |
+4 | 		_a.call("");
+  | 		^^^^^^^^^^^
+
+Warning: CHC: Assertion violation happens here.
+Counterexample:
+
+_a = 0x0
+x = 1
+
+Transaction trace:
+C.constructor()
+C.f(0x0)
+    _a.call("") -- untrusted external call, synthesized as:
+        C.f(0x0) -- reentrant call
+            _a.call("") -- untrusted external call
+ --> test_suite/balance_call.sol:5:3:
+  |
+5 | 		assert(address(this).balance == x); // should fail
+  | 		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+

@@ -1,0 +1,68 @@
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> test_suite/addmod_mulmod_zero.sol
+
+Warning: Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.17;"
+--> test_suite/addmod_mulmod_zero.sol
+
+Warning: Unnamed return variable can remain unassigned. Add an explicit return with value to all non-reverting code paths or name the variable.
+  --> test_suite/addmod_mulmod_zero.sol:12:36:
+   |
+12 | 	function h() public pure returns (uint256) {
+   | 	                                  ^^^^^^^
+
+Warning: CHC: Division by zero happens here.
+Counterexample:
+
+d = 0
+x = 0
+
+Transaction trace:
+C.constructor()
+C.f(0)
+ --> test_suite/addmod_mulmod_zero.sol:3:12:
+  |
+3 | 		uint x = addmod(1, 2, d);
+  | 		         ^^^^^^^^^^^^^^^
+
+Warning: CHC: Assertion violation happens here.
+Counterexample:
+
+d = 0
+x = 0
+
+Transaction trace:
+C.constructor()
+C.f(0)
+ --> test_suite/addmod_mulmod_zero.sol:4:3:
+  |
+4 | 		assert(x < d);
+  | 		^^^^^^^^^^^^^
+
+Warning: CHC: Division by zero happens here.
+Counterexample:
+
+d = 0
+x = 0
+
+Transaction trace:
+C.constructor()
+C.g(0)
+ --> test_suite/addmod_mulmod_zero.sol:8:12:
+  |
+8 | 		uint x = mulmod(1, 2, d);
+  | 		         ^^^^^^^^^^^^^^^
+
+Warning: CHC: Assertion violation happens here.
+Counterexample:
+
+d = 0
+x = 0
+
+Transaction trace:
+C.constructor()
+C.g(0)
+ --> test_suite/addmod_mulmod_zero.sol:9:3:
+  |
+9 | 		assert(x < d);
+  | 		^^^^^^^^^^^^^
+

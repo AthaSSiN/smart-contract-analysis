@@ -1,0 +1,24 @@
+Installing '0.8.17'...
+Version '0.8.17' installed.
+Switched global version to 0.8.17
+[91m
+TxOriginVictim.transferTo(address,uint256) (test_suite/tx_origin.sol#10-13) sends eth to arbitrary user
+	Dangerous calls:
+	- dest.transfer(amount) (test_suite/tx_origin.sol#12)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#functions-that-send-ether-to-arbitrary-destinations[0m
+[93m
+TxOriginVictim.transferTo(address,uint256) (test_suite/tx_origin.sol#10-13) uses tx.origin for authorization: require(bool)(tx.origin == owner) (test_suite/tx_origin.sol#11)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dangerous-usage-of-txorigin[0m
+[92m
+TxOriginVictim.transferTo(address,uint256).dest (test_suite/tx_origin.sol#10) lacks a zero-check on :
+		- dest.transfer(amount) (test_suite/tx_origin.sol#12)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-zero-address-validation[0m
+[92m
+Pragma version>=0.7.0 (test_suite/tx_origin.sol#2) allows old versions
+solc-0.8.17 is not recommended for deployment
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity[0m
+[92m
+transferTo(address,uint256) should be declared external:
+	- TxOriginVictim.transferTo(address,uint256) (test_suite/tx_origin.sol#10-13)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#public-function-that-could-be-declared-external[0m
+/tmp/test_suite/tx_origin.sol analyzed (1 contracts with 78 detectors), 6 result(s) found

@@ -1,0 +1,41 @@
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> test_suite/array_oob.sol
+
+Warning: Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.17;"
+--> test_suite/array_oob.sol
+
+Warning: CHC: Overflow (resulting value larger than 2**256 - 1) might happen here.
+ --> test_suite/array_oob.sol:7:3:
+  |
+7 | 		++l;
+  | 		^^^
+
+Warning: CHC: Out of bounds access happens here.
+Counterexample:
+a = [0], l = 1
+ = 0
+
+Transaction trace:
+C.constructor()
+State: a = [], l = 0
+C.p()
+State: a = [0], l = 1
+C.r()
+  --> test_suite/array_oob.sol:16:10:
+   |
+16 | 		return a[l]; // oob access
+   | 		       ^^^^
+
+Warning: BMC: Overflow (resulting value larger than 2**256 - 1) happens here.
+ --> test_suite/array_oob.sol:7:3:
+  |
+7 | 		++l;
+  | 		^^^
+Note: Counterexample:
+  <result> = 2**256
+  a.length = 0
+  l = 2**256 - 1
+
+Note: Callstack:
+Note:
+

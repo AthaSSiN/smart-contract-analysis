@@ -59,6 +59,14 @@ def get_version(source_file):
                 v = versions[versions.index(v) + 1]
             elif "^" in v:
                 v = re.findall("(?<=\^)\d+\.\d+\.\d+", line)[0]
+                temp_v = '.'.join(v.split('.')[:2])
+
+                for ver in versions:
+                    if temp_v in ver:
+                        v = ver
+                        break
+            elif ">=" in v:
+                v = versions[0]
             else:
                 v = re.findall("\d+\.\d+\.\d+", line)[0]
             
@@ -78,7 +86,8 @@ def get_version(source_file):
 def main():
 
     if sys.argv[1] == "-f":
-        n, source_file = sys.argv[2]
+        source_file = sys.argv[2]
+        n = 1
     elif sys.argv[1] == "-d":
         n, source_file = download_contract(sys.argv[2])
         os.chdir(sys.argv[2])
@@ -86,13 +95,15 @@ def main():
     # flatten contract to run slither and mythril    
 
     v = get_version(source_file)
+    if v == '':
+        v = "0.8.17"
     print("Solidity version", v)
 
     if n > 1:
         print("Flattening Contract")
 
         c = f'docker run -v {os.getcwd()}:/tmp -w /tmp trailofbits/eth-security-toolbox -c'.split()
-        c.append(f'solc-select use {v} ; slither-flat /tmp/{source_file} --strategy OneFile')
+        c.append(f'solc-select install {v}; solc-select use {v} ; slither-flat /tmp/{source_file} --strategy OneFile')
         _ = subprocess.run(c, stdout = subprocess.PIPE)
 
         filename = '/tmp/crytic-export/flattening/export.sol'
@@ -104,32 +115,61 @@ def main():
 
     # run slither
        
-    os.makedirs("analysis", exist_ok = True)
+    os.makedirs(f"analysis/{'/'.join(source_file.split('/')[:-1])}", exist_ok = True)
 
     print("Running slither")
 
     c = f'docker run -v {os.getcwd()}:/tmp -w /tmp trailofbits/eth-security-toolbox -c'.split()
-    c.append(f'solc-select use {v} ; slither --json /tmp/analysis/slither.json {filename}')
-    _ = subprocess.run(c, stdout = subprocess.PIPE)
+    c.append(f'solc-select install {v}; solc-select use {v} ; slither {filename}')
+    out = subprocess.run(c, stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
+
+    out_file = f"analysis/{source_file}.slither.txt"
+
+    f = open(out_file, "w")
+    f.write(out.stdout.decode('UTF-8'))
+    f.close()
+
 
     # run mythril
 
     print("Running mythril")
 
     if len(sys.argv) == 4:
-        c = f"docker run -v {os.getcwd()}:/tmp mythril/myth analyze {filename} --solv {v} --max-depth {sys.argv[3]} -o json".split()
+        c = f"docker run -v {os.getcwd()}:/tmp mythril/myth analyze {filename} --solv {v} --execution-timeout {sys.argv[3]}".split()
     elif len(sys.argv) == 5:
-        c = f"docker run -v {os.getcwd()}:/tmp mythril/myth analyze {filename} --solv {v} --max-depth {sys.argv[3]} --execution-timeout {sys.argv[4]} -o json".split()
+        c = f"docker run -v {os.getcwd()}:/tmp mythril/myth analyze {filename} --solv {v} --execution-timeout {sys.argv[3]} --max-depth {sys.argv[4]}".split()
     else:
-        c = f"docker run -v {os.getcwd()}:/tmp mythril/myth analyze {filename} --solv {v} -o json".split()
+        c = f"docker run -v {os.getcwd()}:/tmp mythril/myth analyze {filename} --solv {v}".split()
 
     out = subprocess.run(c, stdout = subprocess.PIPE)
 
-    out_file = "analysis/mythril.json"
+    out_file = f"analysis/{source_file}.mythril.txt"
 
     f = open(out_file, "w")
     f.write(out.stdout.decode('UTF-8'))
     f.close()
+
+    # run SMTChecker
+    if v == "0.8.17":
+
+        print("Running SMTChecker")
+        c = f'docker run -v {os.getcwd()}:/tmp -w /tmp est2 -c'.split()
+
+        if len(sys.argv) >= 4:
+            timeout = int(sys.argv[3]) * 1000
+        else:
+            timeout = 0
+        c.append(f"solc {filename} --model-checker-engine all --model-checker-show-unproved --model-checker-timeout {timeout} --model-checker-targets all")
+        out = subprocess.run(c, stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
+
+        out_file = f"analysis/{source_file}.smtchecker.txt"
+
+        f = open(out_file, "w")
+        f.write(out.stdout.decode('UTF-8'))
+        f.close()
+
+    else:
+        print("SMTChecker not supported for lower solidity versions")
 
     if sys.argv[1] == "-d":
         os.chdir("..")

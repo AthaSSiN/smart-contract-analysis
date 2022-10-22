@@ -1,0 +1,18 @@
+Installing '0.8.17'...
+Version '0.8.17' installed.
+Switched global version to 0.8.17
+Compilation warnings/errors on /tmp/test_suite/non_mut_reentrancy.sol:
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> test_suite/non_mut_reentrancy.sol
+
+
+[92m
+solc-0.8.17 is not recommended for deployment
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity[0m
+[92m
+setX(uint256) should be declared external:
+	- ExtCall.setX(uint256) (test_suite/non_mut_reentrancy.sol#10-12)
+xMut(Unknown) should be declared external:
+	- ExtCall.xMut(Unknown) (test_suite/non_mut_reentrancy.sol#14-19)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#public-function-that-could-be-declared-external[0m
+/tmp/test_suite/non_mut_reentrancy.sol analyzed (2 contracts with 78 detectors), 3 result(s) found

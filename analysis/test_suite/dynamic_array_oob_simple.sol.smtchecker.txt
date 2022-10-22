@@ -1,0 +1,28 @@
+Warning: CHC: Out of bounds access happens here.
+Counterexample:
+
+n = 0
+a = []
+
+Transaction trace:
+MyContract.constructor()
+MyContract.dyn_array_oob_simple(0)
+ --> test_suite/dynamic_array_oob_simple.sol:7:5:
+  |
+7 |     a[0] = 100;
+  |     ^^^^
+
+Warning: CHC: Out of bounds access happens here.
+Counterexample:
+
+n = 0
+a = []
+
+Transaction trace:
+MyContract.constructor()
+MyContract.dyn_array_oob_simple(0)
+ --> test_suite/dynamic_array_oob_simple.sol:8:12:
+  |
+8 |     assert(a[0] == 100);
+  |            ^^^^
+

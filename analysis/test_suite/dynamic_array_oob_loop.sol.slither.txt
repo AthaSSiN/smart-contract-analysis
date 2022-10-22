@@ -1,0 +1,19 @@
+Installing '0.8.17'...
+Version '0.8.17' installed.
+Switched global version to 0.8.17
+[92m
+MyContract.dyn_array_oob_loop(uint8) (test_suite/dynamic_array_oob_loop.sol#6-12) has costly operations inside a loop:
+	- ++ i (test_suite/dynamic_array_oob_loop.sol#8)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#costly-operations-inside-a-loop[0m
+[92m
+Pragma version>=0.4.26 (test_suite/dynamic_array_oob_loop.sol#2) allows old versions
+solc-0.8.17 is not recommended for deployment
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity[0m
+[92m
+Function MyContract.dyn_array_oob_loop(uint8) (test_suite/dynamic_array_oob_loop.sol#6-12) is not in mixedCase
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#conformance-to-solidity-naming-conventions[0m
+[92m
+dyn_array_oob_loop(uint8) should be declared external:
+	- MyContract.dyn_array_oob_loop(uint8) (test_suite/dynamic_array_oob_loop.sol#6-12)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#public-function-that-could-be-declared-external[0m
+/tmp/test_suite/dynamic_array_oob_loop.sol analyzed (1 contracts with 78 detectors), 5 result(s) found

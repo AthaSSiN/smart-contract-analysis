@@ -1,0 +1,13 @@
+Warning: BMC: Insufficient funds happens here.
+  --> test_suite/tx_origin.sol:12:9:
+   |
+12 |         dest.transfer(amount);
+   |         ^^^^^^^^^^^^^^^^^^^^^
+Note: Counterexample:
+  amount = 0
+  dest = 0
+  owner = 20976
+
+Note: Callstack:
+Note:
+

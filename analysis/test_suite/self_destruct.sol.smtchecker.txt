@@ -1,0 +1,6 @@
+Warning: Assertion checker does not yet implement this type of function call.
+  --> test_suite/self_destruct.sol:56:9:
+   |
+56 |         selfdestruct(addr);
+   |         ^^^^^^^^^^^^^^^^^^
+

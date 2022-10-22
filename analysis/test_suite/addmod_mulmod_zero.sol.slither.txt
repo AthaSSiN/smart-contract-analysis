@@ -1,0 +1,29 @@
+Installing '0.8.17'...
+Version '0.8.17' installed.
+Switched global version to 0.8.17
+Compilation warnings/errors on /tmp/test_suite/addmod_mulmod_zero.sol:
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> test_suite/addmod_mulmod_zero.sol
+
+Warning: Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.17;"
+--> test_suite/addmod_mulmod_zero.sol
+
+Warning: Unnamed return variable can remain unassigned. Add an explicit return with value to all non-reverting code paths or name the variable.
+  --> test_suite/addmod_mulmod_zero.sol:12:36:
+   |
+12 | 	function h() public pure returns (uint256) {
+   | 	                                  ^^^^^^^
+
+
+[92m
+solc-0.8.17 is not recommended for deployment
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity[0m
+[92m
+f(uint256) should be declared external:
+	- C.f(uint256) (test_suite/addmod_mulmod_zero.sol#2-5)
+g(uint256) should be declared external:
+	- C.g(uint256) (test_suite/addmod_mulmod_zero.sol#7-10)
+h() should be declared external:
+	- C.h() (test_suite/addmod_mulmod_zero.sol#12-19)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#public-function-that-could-be-declared-external[0m
+/tmp/test_suite/addmod_mulmod_zero.sol analyzed (1 contracts with 78 detectors), 4 result(s) found
