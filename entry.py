@@ -37,7 +37,7 @@ else :
     for i in range(len(rows)):
         if rows[i][-3:] == "sol":
             print("Running for file", filename + '/' + rows[i])
-            c = f"python3 run.py -f {filename}/{rows[i]} 30 1".split()
+            c = f"python3 run.py -f {filename}/{rows[i]} 3000 5".split()
             subprocess.run(c)
             print("---------------------\n")
 
