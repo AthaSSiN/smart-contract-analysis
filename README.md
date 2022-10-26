@@ -18,5 +18,5 @@ If the csv contains addresses, the script can download the contracts at those ad
 The addresses have to be in the 2nd column
 
 ```bash
-python3 entry.py -f path_to_csv
+python3 entry.py -d path_to_csv
 ```
