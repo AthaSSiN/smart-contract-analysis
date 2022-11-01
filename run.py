@@ -134,9 +134,7 @@ def main():
 
     print("Running mythril")
 
-    if len(sys.argv) == 4:
-        c = f"docker run -v {os.getcwd()}:/tmp mythril/myth analyze {filename} --solv {v} --execution-timeout {sys.argv[3]}".split()
-    elif len(sys.argv) == 5:
+    if len(sys.argv) == 5:
         c = f"docker run -v {os.getcwd()}:/tmp mythril/myth analyze {filename} --solv {v} --execution-timeout {sys.argv[3]} --max-depth {sys.argv[4]}".split()
     else:
         c = f"docker run -v {os.getcwd()}:/tmp mythril/myth analyze {filename} --solv {v}".split()

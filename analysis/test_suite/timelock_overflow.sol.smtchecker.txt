@@ -21,7 +21,7 @@ Counterexample:
 
 Transaction trace:
 TimeLock.constructor()
-TimeLock.deposit(){ block.timestamp: 115792089237316195423570985008687907853269984665640564039457584007913129035136, msg.sender: 0x0985, msg.value: 1 }
+TimeLock.deposit(){ block.timestamp: 115792089237316195423570985008687907853269984665640564039457584007913129035136, msg.sender: 0x0985, msg.value: 11 }
   --> test_suite/timelock_overflow.sol:25:32:
    |
 25 |         lockTime[msg.sender] = block.timestamp + 1 weeks;
@@ -40,7 +40,7 @@ timeLock = 0
 Transaction trace:
 Attack.constructor(0)
 State: timeLock = 0
-Attack.attack(){ msg.value: 0 }
+Attack.attack(){ msg.value: 2 }
     timeLock.deposit{value: msg.value}() -- untrusted external call
   --> test_suite/timelock_overflow.sol:63:13:
    |
