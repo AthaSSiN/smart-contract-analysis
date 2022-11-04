@@ -23,7 +23,7 @@ def download_contract(address):
         f.write(code)
         f.close()
         source_file = "contract.sol"
-        return [1, source_file]
+        return [1, file_name]
 
     else:
         contracts = json.loads(r["result"][0]["SourceCode"][1:-1])
@@ -39,7 +39,7 @@ def download_contract(address):
             if flag == 0:
                 source_file = code
                 flag = 1
-        return [len(codes.keys()), source_file]
+        return [len(codes.keys()), file_name]
 
 def get_version(source_file):
 
@@ -105,7 +105,7 @@ def main():
         print("Flattening Contract")
 
         c = f'docker run -v {os.getcwd()}:/tmp -w /tmp trailofbits/eth-security-toolbox -c'.split()
-        c.append(f'solc-select install {v}; solc-select use {v} ; slither-flat /tmp/{source_file} --strategy OneFile')
+        c.append(f'solc-select install {v}; solc-select use {v} ; slither-flat /tmp/{source_file} --strategy OneFile --dir /tmp/{os.path.dirname(source_file)}')
         _ = subprocess.run(c, stdout = subprocess.PIPE)
 
         filename = '/tmp/crytic-export/flattening/export.sol'
@@ -159,6 +159,7 @@ def main():
             timeout = int(sys.argv[3]) * 1000
         else:
             timeout = 0
+        print(timeout)
         c.append(f"solc {filename} --model-checker-engine all --model-checker-show-unproved --model-checker-timeout {timeout} --model-checker-targets all")
         out = subprocess.run(c, stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
 
