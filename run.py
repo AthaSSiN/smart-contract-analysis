@@ -90,7 +90,9 @@ def main():
         n = 1
     elif sys.argv[1] == "-d":
         n, source_file = download_contract(sys.argv[2])
-        os.chdir(sys.argv[2])
+    elif sys.argv[1] == "-m":
+        n = 2
+        source_file = sys.argv[2]
     
     # flatten contract to run slither and mythril    
 
@@ -168,9 +170,6 @@ def main():
 
     else:
         print("SMTChecker not supported for lower solidity versions")
-
-    if sys.argv[1] == "-d":
-        os.chdir("..")
 
 if __name__ == "__main__":
     main()
